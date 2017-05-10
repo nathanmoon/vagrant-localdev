@@ -1,0 +1,14 @@
+[alias]
+  stat = status
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+  find = !sh -c 'git ls-files --full-name "\\*$1\\*"' -
+[color]
+  diff=auto
+  branch=auto
+  interactive=auto
+  status=auto
+  grep=auto
+[rebase]
+  stat=true
+[push]
+  default=tracking

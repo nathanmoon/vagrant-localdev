@@ -1,0 +1,10 @@
+session_name: backend
+windows:
+    - window_name: editor
+      layout: main-vertical
+      panes:
+          - shell_command:
+              - vim
+          - shell_command:
+              - ls
+

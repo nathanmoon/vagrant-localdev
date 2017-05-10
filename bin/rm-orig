@@ -1,0 +1,4 @@
+#!/bin/bash
+
+find . -name "*.py.orig" -exec rm {} \;
+find . -name "*.js.orig" -exec rm {} \;

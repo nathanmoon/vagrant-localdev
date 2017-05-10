@@ -1,0 +1,8 @@
+#!/bin/bash
+cd /opt/code/hv
+echo temp commit
+if git commit --no-verify -a -m "temp commit for merge"; then : nothing; else exit $?; fi
+echo rebase
+if git pull --rebase; then : nothing; else exit $?; fi
+echo reset
+git reset HEAD^

@@ -1,0 +1,14 @@
+session_name: server
+windows:
+    - window_name: server
+      layout: tiled
+      panes:
+          - shell_command:
+              - ls
+          - shell_command:
+              - ls
+          - shell_command:
+              - ls
+          - shell_command:
+              - ls
+
