@@ -58,3 +58,5 @@ make
 sudo make install
 
 cd /home/ubuntu
+
+cp -R bin /home/ubuntu/bin
