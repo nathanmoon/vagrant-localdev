@@ -9,10 +9,10 @@ VAGRANT_BOX = 'ubuntu/xenial64'
 VM_NAME = 'localdev'
 
 # VM User — 'vagrant' by default
-VM_USER = 'vagrant'
+VM_USER = 'ubuntu'
 
 # Username on your Mac 
-MAC_USER = 'nathan'
+MAC_USER = 'nmoon'
 
 # Host folder to sync
 HOST_PATH = '/Users/' + MAC_USER + '/vagrant/' + VM_NAME
@@ -50,12 +50,10 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder '.', '/home/'+VM_USER+'', disabled: true
 
   # Bootstrap
-  config.vm.provision "shell", inline: <<-SHELL
-    cd ~/localdev $$ sh setup.sh
-    apt-get update
-    apt-get install -y git vim build-essential
-    apt-get update
-    apt-get upgrade -y
-    apt-get autoremove -y
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    cd /home/ubuntu/localdev && sh setup.sh
   SHELL
+
+  # forward agent
+  config.ssh.forward_agent = true
 end
