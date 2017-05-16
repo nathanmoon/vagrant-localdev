@@ -11,11 +11,8 @@ VM_NAME = 'localdev'
 # VM User — 'vagrant' by default
 VM_USER = 'ubuntu'
 
-# Username on your Mac 
-MAC_USER = 'nmoon'
-
 # Host folder to sync
-HOST_PATH = '/Users/' + MAC_USER + '/vagrant/' + VM_NAME
+HOST_PATH = File.dirname(__FILE__)
 
 # Where to sync to on Guest — 'vagrant' is the default user name
 GUEST_PATH = '/home/' + VM_USER + '/' + VM_NAME

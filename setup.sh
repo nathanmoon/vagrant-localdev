@@ -48,7 +48,7 @@ vim +PluginInstall +qall
 pip install --user tmuxp
 cp -R tmuxp /home/ubuntu/.tmuxp
 
-git clone --recursive git@github.com:nathanmoon/tmux-config.git /home/ubuntu/.tmux
+git clone --recursive https://github.com/nathanmoon/tmux-config.git /home/ubuntu/.tmux
 ln -s /home/ubuntu/.tmux/.tmux.conf /home/ubuntu/.tmux.conf
 cd /home/ubuntu/.tmux/vendor/tmux-mem-cpu-load
 mkdir build
@@ -57,6 +57,6 @@ cmake ..
 make
 sudo make install
 
-cd /home/ubuntu
+cd /home/ubuntu/localdev
 
 cp -R bin /home/ubuntu/bin
