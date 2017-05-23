@@ -12,12 +12,12 @@ vagrant ssh
 ## Details
 Installs:
 * vim8
- * vundle
-  * nerdtree
-  * vim-fugitive (git)
-  * ale (linter)
-  * javascript, python, less support
-  * more...
+  * vundle
+    * nerdtree
+    * vim-fugitive (git)
+    * ale (linter)
+    * javascript, python, less support
+    * more...
 * git
 * tmux and tmuxp
 
