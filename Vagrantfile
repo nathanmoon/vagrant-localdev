@@ -53,4 +53,9 @@ Vagrant.configure(2) do |config|
 
   # forward agent
   config.ssh.forward_agent = true
+
+  # copy ssh keys
+  config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "/home/ubuntu/.ssh/id_rsa"
+  config.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: "/home/ubuntu/.ssh/id_rsa.pub"
+
 end
