@@ -40,6 +40,9 @@ Vagrant.configure(2) do |config|
   # # Port forwarding — uncomment this to use NAT instead of DHCP
   # config.vm.network "forwarded_port", guest: 80, host: VM_PORT
 
+  # This is for firebase login, which uses the browser to authenticate
+  # config.vm.network "forwarded_port", guest: 9005, host: 9005
+
   # Sync folder
   config.vm.synced_folder HOST_PATH, GUEST_PATH
 

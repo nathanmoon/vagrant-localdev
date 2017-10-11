@@ -20,6 +20,7 @@ Plugin 'scrooloose/nerdtree'
 
 " git integration
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 
 " linter
 Plugin 'w0rp/ale'
@@ -33,9 +34,14 @@ Plugin 'ntpeters/vim-better-whitespace'
 " Javascript
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+" Plugin 'posva/vim-vue'
+Plugin 'mitermayer/vim-prettier'
 
 " LESS syntax highlighting
 Plugin 'groenewege/vim-less'
+
+" JSON
+Plugin 'elzr/vim-json'
 
 
 
@@ -55,16 +61,62 @@ filetype plugin indent on    " required
 " END VUNDLE STUFF
 
 " w0rp/ale config
-let g:ale_javascript_eslint_options = "--no-eslintrc --config ~/.eslintrc"
-let g:ale_javascript_eslint_use_global = 1
+" This would be if you wanted global eslint config for some reason
+" let g:ale_javascript_eslint_options = "--no-eslintrc --config ~/.eslintrc"
+" let g:ale_javascript_eslint_use_global = 1
+
+" configure so :ALEFix will try and fix your JS code with ESLint.
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\}
+" fix files automatically on save.
+let g:ale_fix_on_save = 1
 
 " nerdtree config
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize = 50
 
 " testing: remove trailing whitespace
-autocmd FileType javascript autocmd BufWritePre <buffer> %s/\s\+$//e
+" autocmd FileType javascript autocmd BufWritePre <buffer> %s/\s\+$//e
+
+" prettier config
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 0
+let g:prettier#quickfix_enabled = 0
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#trailing_comma = 'es5'
+let g:prettier#config#bracket_spacing = 'true'
+
+" prettier is off by default but can be turned on by running
+" :call TogglePrettier()
+" when turned on, it will reformat on save
+let g:PrettierToggle = 0
+" augroup PrettierStuff
+"     autocmd!
+"     autocmd BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
+" augroup END
+
+function! TogglePrettier()
+    " Switch the toggle variable
+    let g:PrettierToggle = !get(g:, 'PrettierToggle', 1)
+
+    " Reset group
+    augroup PrettierStuff
+        autocmd!
+    augroup END
+
+    " Enable if toggled on
+    if g:PrettierToggle
+        augroup PrettierStuff
+            autocmd! BufWritePre *.js,*.css,*.scss,*.less PrettierAsync
+        augroup END
+    endif
+endfunction
+
+" json config
+let g:vim_json_syntax_conceal = 0
 
 set background=dark
 colorscheme koehler
@@ -116,6 +168,8 @@ nnoremap <C-H> <C-W><C-H>
 
 " Alternate Escape
 inoremap ;l <Esc>
+vnoremap ;l <Esc>
+cnoremap ;l <Esc>
 
 " file type specific
 
@@ -126,6 +180,7 @@ autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffeescript setlocal shiftwidth=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
+" autocmd FileType vue setlocal shiftwidth=2 tabstop=2
 
 let g:airline_theme='dark'
 " something to get airline theme to show up at the first:
