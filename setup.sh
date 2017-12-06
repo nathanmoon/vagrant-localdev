@@ -1,14 +1,14 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install -y git build-essential libncurses5-dev cmake python-pip bc
+sudo apt-get install -y git build-essential libncurses5-dev cmake python-pip bc bash-completion
 
 vim_version=$(vim --version | head -1 | grep -o '[0-9]\.[0-9]')
 if [ $(echo "$vim_version < 8.0" | bc -l) -eq 1 ]; then
     echo "Upgrading vim from $vim_version to 8!"
     sudo apt-get remove vim vim-runtime vim-tiny vim-common
-    git clone https://github.com/vim/vim.git /home/ubuntu/vim
-    cd /home/ubuntu/vim
+    git clone https://github.com/vim/vim.git /home/vagrant/vim
+    cd /home/vagrant/vim
     ./configure --with-features=huge --enable-multibyte
     sudo make install
 fi
@@ -22,7 +22,7 @@ sudo update-alternatives --set editor /usr/local/bin/vim
 sudo update-alternatives --install /usr/local/bin/vi vi /usr/local/bin/vim 1
 sudo update-alternatives --set vi /usr/local/bin/vim
 
-cd /home/ubuntu/localdev
+cd /home/vagrant/localdev
 cp bashrc ~/.bashrc
 
 cp gitconfig ~/.gitconfig
@@ -41,11 +41,11 @@ cat << EOF >> ~/.gitconfig
 
 EOF
 
-if [ ! -d "/home/ubuntu/.vim/bundle/Vundle.vim" ]; then
-    git clone https://github.com/gmarik/Vundle.vim.git /home/ubuntu/.vim/bundle/Vundle.vim
+if [ ! -d "/home/vagrant/.vim/bundle/Vundle.vim" ]; then
+    git clone https://github.com/gmarik/Vundle.vim.git /home/vagrant/.vim/bundle/Vundle.vim
 fi
 
-cp vimrc /home/ubuntu/.vimrc
+cp vimrc /home/vagrant/.vimrc
 
 # vim +PluginInstall +qall &>/dev/null
 
@@ -61,20 +61,20 @@ sudo apt-get install -y postgresql postgresql-contrib
 
 pip install --upgrade pip
 pip install --user tmuxp
-cp -R tmuxp /home/ubuntu/.tmuxp
+cp -R tmuxp /home/vagrant/.tmuxp
 
-if [ ! -d "/home/ubuntu/.tmux" ]; then
-    git clone --recursive https://github.com/nathanmoon/tmux-config.git /home/ubuntu/.tmux
+if [ ! -d "/home/vagrant/.tmux" ]; then
+    git clone --recursive https://github.com/nathanmoon/tmux-config.git /home/vagrant/.tmux
 fi
-rm -f /home/ubuntu/.tmux.conf
-ln -s /home/ubuntu/.tmux/.tmux.conf /home/ubuntu/.tmux.conf
-cd /home/ubuntu/.tmux/vendor/tmux-mem-cpu-load
+rm -f /home/vagrant/.tmux.conf
+ln -s /home/vagrant/.tmux/.tmux.conf /home/vagrant/.tmux.conf
+cd /home/vagrant/.tmux/vendor/tmux-mem-cpu-load
 mkdir -p build
 cd build
 cmake ..
 make
 sudo make install
 
-cd /home/ubuntu/localdev
+cd /home/vagrant/localdev
 
-cp -R bin /home/ubuntu/bin
+cp -R bin /home/vagrant/bin
