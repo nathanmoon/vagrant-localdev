@@ -21,3 +21,6 @@ Installs:
 * git
 * tmux and tmuxp
 
+## TODO
+Look into using:
+* editorconfig

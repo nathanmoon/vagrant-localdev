@@ -23,29 +23,35 @@ sudo update-alternatives --install /usr/local/bin/vi vi /usr/local/bin/vim 1
 sudo update-alternatives --set vi /usr/local/bin/vim
 
 cd /home/vagrant/localdev
-cp bashrc ~/.bashrc
+if [ ! -d "/home/vagrant/.bashrc" ]; then
+    cp bashrc ~/.bashrc
+fi
 
-cp gitconfig ~/.gitconfig
+if [ ! -d "/home/vagrant/.gitconfig" ]; then
+    cp gitconfig ~/.gitconfig
 
-#echo -n "For git"
-#echo -n "Enter your name: "
-#read gitname
-#echo -n "Enter your email: "
-#read gitemail
+    #echo -n "For git"
+    #echo -n "Enter your name: "
+    #read gitname
+    #echo -n "Enter your email: "
+    #read gitemail
 
-cat << EOF >> ~/.gitconfig
+    cat << EOF >> ~/.gitconfig
 
 [user]
     name = "Nathan Moon"
     email = "nathannospam@gmail.com"
 
 EOF
+fi
 
 if [ ! -d "/home/vagrant/.vim/bundle/Vundle.vim" ]; then
     git clone https://github.com/gmarik/Vundle.vim.git /home/vagrant/.vim/bundle/Vundle.vim
 fi
 
-cp vimrc /home/vagrant/.vimrc
+if [ ! -d "/home/vagrant/.vimrc" ]; then
+    cp vimrc /home/vagrant/.vimrc
+fi
 
 # vim +PluginInstall +qall &>/dev/null
 
@@ -61,7 +67,9 @@ sudo apt-get install -y postgresql postgresql-contrib
 
 pip install --upgrade pip
 pip install --user tmuxp
-cp -R tmuxp /home/vagrant/.tmuxp
+if [ ! -d "/home/vagrant/.tmuxp" ]; then
+    cp -R tmuxp /home/vagrant/.tmuxp
+fi
 
 if [ ! -d "/home/vagrant/.tmux" ]; then
     git clone --recursive https://github.com/nathanmoon/tmux-config.git /home/vagrant/.tmux

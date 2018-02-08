@@ -8,14 +8,11 @@ VAGRANT_BOX = 'bento/ubuntu-16.04'
 # Memorable name for your
 VM_NAME = 'localdev2'
 
-# VM User — 'vagrant' by default
-VM_USER = 'vagrant'
-
 # Host folder to sync
 HOST_PATH = File.dirname(__FILE__)
 
 # Where to sync to on Guest — 'vagrant' is the default user name
-GUEST_PATH = '/home/' + VM_USER + '/localdev'
+GUEST_PATH = '/home/vagrant/localdev'
 
 # # VM Port — uncomment this to use NAT instead of DHCP
 # VM_PORT = 8080
@@ -44,11 +41,11 @@ Vagrant.configure(2) do |config|
   # This is for firebase login, which uses the browser to authenticate
   # config.vm.network "forwarded_port", guest: 9005, host: 9005
 
+  # Disable default Vagrant folder, use a unique path per project
+  config.vm.synced_folder '.', '/home/vagrant', disabled: true
+
   # Sync folder
   config.vm.synced_folder HOST_PATH, GUEST_PATH
-
-  # Disable default Vagrant folder, use a unique path per project
-  config.vm.synced_folder '.', '/home/'+VM_USER+'', disabled: true
 
   # Bootstrap
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
