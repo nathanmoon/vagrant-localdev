@@ -17,6 +17,7 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " directory tree
 Plugin 'scrooloose/nerdtree'
+Plugin 'ctrlpvim/ctrlp.vim'
 
 " git integration
 Plugin 'tpope/vim-fugitive'
@@ -115,6 +116,22 @@ function! TogglePrettier()
     endif
 endfunction
 
+" ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline_powerline_fonts = 1
+" NOTE: install powerline fonts on the host, and use one in settings in iterm
+
 " json config
 let g:vim_json_syntax_conceal = 0
 
@@ -175,6 +192,7 @@ cnoremap ;l <Esc>
 
 au BufNewFile,BufRead *.es6 set filetype=javascript
 
+autocmd FileType python setlocal shiftwidth=4 tabstop=4
 autocmd FileType html setlocal shiftwidth=2 tabstop=2
 autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
