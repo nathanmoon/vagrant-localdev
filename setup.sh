@@ -53,7 +53,8 @@ if [ ! -d "/home/vagrant/.vimrc" ]; then
     cp vimrc /home/vagrant/.vimrc
 fi
 
-# vim +PluginInstall +qall &>/dev/null
+vim +PluginInstall +qall &>/dev/null
+cp mydark.vim /home/vagrant/.vim/bundle/vim-airline/autoload/airline/themes/
 
 # Yarn
 if ! [ -x "$(command -v yarn)" ]; then

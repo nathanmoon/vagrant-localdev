@@ -44,6 +44,10 @@ Plugin 'groenewege/vim-less'
 " JSON
 Plugin 'elzr/vim-json'
 
+" Typescript
+Plugin 'leafgarland/typescript-vim'
+" Plugin 'Shougo/vimproc.vim' " only needed for neovim (??)
+Plugin 'Quramy/tsuquyomi'
 
 
 " All of your Plugins must be added before the following line
@@ -68,7 +72,8 @@ filetype plugin indent on    " required
 
 " configure so :ALEFix will try and fix your JS code with ESLint.
 let g:ale_fixers = {
-\   'javascript': ['eslint'],
+\   'javascript': ['prettier'],
+\   'typescript': ['tsserver'],
 \}
 " fix files automatically on save.
 let g:ale_fix_on_save = 1
@@ -78,6 +83,7 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize = 50
+let NERDTreeShowHidden = 1
 
 " testing: remove trailing whitespace
 " autocmd FileType javascript autocmd BufWritePre <buffer> %s/\s\+$//e
@@ -119,18 +125,27 @@ endfunction
 " ctrlp
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|node_modules)$',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|\.local|([^\/]+\/)*dist|([^\/]+\/)*node_modules)$',
+  \ 'file': '\v\.(exe|so|dll|un~|swp)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
 " airline
+" show buffers
 let g:airline#extensions#tabline#enabled = 1
+" show just filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+" linter
 let g:airline#extensions#ale#enabled = 1
-let g:airline_powerline_fonts = 1
 " NOTE: install powerline fonts on the host, and use one in settings in iterm
+let g:airline_powerline_fonts = 1
+let g:airline_theme='mydark'
+" something to get airline theme to show up at the first:
+set laststatus=2
+
 
 " json config
 let g:vim_json_syntax_conceal = 0
@@ -142,13 +157,16 @@ set hlsearch
 
 syntax on
 
+" fiddle with colors
+highlight SpellBad ctermbg=52
+
 " heavy-handed writes, so that file watchers work better
 set backupcopy=yes
 
-" Auto indent and doing 4 spaces for tabs
+" Auto indent and doing 2 spaces for tabs
 set expandtab
-set ts=4
-set sw=4
+set ts=2
+set sw=2
 set smarttab
 set autoindent
 set autoread
@@ -182,6 +200,9 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+" Move between buffers
+nnoremap <C-M> :bnext<CR>
+nnoremap <C-N> :bprevious<CR>
 
 " Alternate Escape
 inoremap ;l <Esc>
@@ -198,11 +219,9 @@ autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType coffeescript setlocal shiftwidth=2 tabstop=2
 autocmd FileType css setlocal shiftwidth=2 tabstop=2
+autocmd FileType scss setlocal shiftwidth=2 tabstop=2
+autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
 " autocmd FileType vue setlocal shiftwidth=2 tabstop=2
-
-let g:airline_theme='dark'
-" something to get airline theme to show up at the first:
-set laststatus=2
 
 " WatchForChanges function
 "
